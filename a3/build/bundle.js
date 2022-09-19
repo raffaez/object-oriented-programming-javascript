@@ -1,0 +1,95 @@
+var Electronic = /** @class */ (function () {
+    function Electronic() {
+        this._volume = 100;
+        this._isOn = false;
+    }
+    Electronic.prototype.turnOn = function () {
+        var result;
+        if (this.getIsOn()) {
+            result = "".concat(this.deviceName, " is already on.");
+        }
+        else {
+            this.setIsOn(true);
+            result = "".concat(this.deviceName, " has been turned on.");
+        }
+        console.log(result);
+    };
+    Electronic.prototype.turnOff = function () {
+        var result;
+        if (!this.getIsOn()) {
+            result = "".concat(this.deviceName, " is already off.");
+        }
+        else {
+            this.setIsOn(false);
+            result = "".concat(this.deviceName, " has been turned off.");
+        }
+        console.log(result);
+    };
+    Electronic.prototype.volumeUp = function () {
+        var result;
+        if (this.getIsOn()) {
+            if (this.getVolume() >= 100) {
+                result = "Device at max volume.";
+            }
+            else {
+                this.setVolume(1);
+                result = "++ Volume: ".concat(this.getVolume(), " ++");
+            }
+            console.log(result);
+        }
+    };
+    Electronic.prototype.volumeDown = function () {
+        var result;
+        if (this.getIsOn) {
+            if (this.getVolume() <= 0) {
+                result = "Device at min volume.";
+            }
+            else {
+                this.setVolume(2);
+                result = "-- Volume: ".concat(this.getVolume(), " --");
+            }
+            console.log(result);
+        }
+    };
+    Electronic.prototype.deviceInfo = function () {
+        console.log('\n\n######### DEVICE INFO #########\n');
+        console.log("Category: ".concat(this.category));
+        console.log("Name: ".concat(this.deviceName));
+        if (this.getIsOn()) {
+            console.log("This device is on");
+            console.log("Current volume: ".concat(this.getVolume()));
+        }
+        else {
+            console.log("This device is off");
+        }
+    };
+    Electronic.prototype.getIsOn = function () {
+        return this._isOn;
+    };
+    Electronic.prototype.setIsOn = function (value) {
+        this._isOn = value;
+    };
+    Electronic.prototype.getVolume = function () {
+        return this._volume;
+    };
+    Electronic.prototype.setVolume = function (value) {
+        switch (value) {
+            case 1:
+                this._volume += 20;
+                break;
+            case 2:
+                this._volume -= 20;
+                break;
+        }
+    };
+    return Electronic;
+}());
+var tv = new Electronic();
+tv.deviceName = 'SmartTV';
+tv.category = 'TV';
+tv.turnOn();
+tv.volumeDown();
+tv.volumeUp();
+tv.volumeUp();
+tv.turnOff();
+tv.deviceInfo();
